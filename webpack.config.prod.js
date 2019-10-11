@@ -1,6 +1,5 @@
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import VueLoaderPlugin from 'vue-loader/lib/plugin'
 
 module.exports = {
   mode: 'production',
@@ -28,18 +27,13 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
-        test: /\.vue$/,
-        loader: 'vue-loader'
-      },
-      {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader']
       },
       {
         test: /\.scss$/,
-        use: ['vue-style-loader', 'css-loader', 'sass-loader']
+        use: ['css-loader', 'sass-loader']
       }
     ]
-  },
-  plugins: [new VueLoaderPlugin()]
+  }
 }

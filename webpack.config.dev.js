@@ -1,4 +1,3 @@
-import VueLoaderPlugin from 'vue-loader/lib/plugin'
 import webpack from 'webpack'
 
 module.exports = {
@@ -24,21 +23,16 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
-        test: /\.vue$/,
-        loader: 'vue-loader'
-      },
-      {
         test: /\.css$/,
-        loaders: ['vue-style-loader', 'css-loader']
+        loaders: ['css-loader']
       },
       {
         test: /\.scss$/,
-        use: ['vue-style-loader', 'css-loader', 'sass-loader']
+        use: ['css-loader', 'sass-loader']
       }
     ]
   },
   plugins: [
-    new VueLoaderPlugin(),
     new webpack.SourceMapDevToolPlugin({
       filename: 'app.js.map',
       exclude: ['vendor.js']

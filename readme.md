@@ -48,13 +48,11 @@ That's it folks, you can start coding in the `src/` folder and let the magic hap
 
 - A sourcemap will be created while in development
 
-- Supported extensions are `.ts`, `.tsx`, `.js`, `.jsx`, `.vue`
+- Supported extensions are `.ts`, `.tsx`, `.js`, `.jsx`
 
 - Support react applications
 
 - Support import syntax and resolve folders indexes
-
-- Support Vue app and Vue file component notation
 
 - Support old browser (targets can be configured in `.babelrc`)
 

@@ -21,7 +21,6 @@ const PATHS = {
     views: process.env.SRC + '/' + process.env.SRC_VIEWS,
     styles: process.env.SRC + '/' + process.env.SRC_STYLES,
     scripts: process.env.SRC + '/' + process.env.SRC_SCRIPTS,
-    vuefiles: process.env.SRC + '/' + process.env.SRC_VUE,
     img: process.env.SRC + '/' + process.env.SRC_IMAGES,
     assets: process.env.SRC + '/' + process.env.SRC_ASSETS
   },
@@ -164,7 +163,6 @@ async function watch() {
   gulp.watch(PATHS.src.styles, styles)
   gulp.watch(PATHS.src.views, views)
   gulp.watch(PATHS.src.scripts, scripts)
-  gulp.watch(PATHS.src.vuefiles, scripts)
   gulp.watch(PATHS.src.img, images)
   gulp.watch(PATHS.src.assets, assets)
 }
