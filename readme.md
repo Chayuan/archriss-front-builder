@@ -2,35 +2,35 @@
 
 ## Installation
 
-Clone the project and run `npm install`
+Clone the project and run `yarn install`
 
 ## How to use
 
 Build :
 
-- production mode `npm run build:prod`
-- developpement mode `npm run build`
+- production mode `yarn build:prod`
+- developpement mode `yarn build`
 
 Watch :
 
-- `npm run dev` or `npm run watch`
+- `yarn dev` or `yarn watch`
 
 That's it folks, you can start coding in the `src/` folder and let the magic happen.
 
 > All the folder, srcs and destinations are customizable. Just edit the .env file depending on your needs
 
-## List of specific tasks
+## List of specific tasks (lust be prefixed with yarn)
 
-- `npm run scripts`
-- `npm run scripts:prod`
-- `npm run styles`
-- `npm run styles:prod`
-- `npm run imgs`
-- `npm run imgs:prod`
-- `npm run assets`
-- `npm run assets:prod`
-- `npm run views`
-- `npm run views:prod`
+- `scripts`
+- `scripts:prod`
+- `styles`
+- `styles:prod`
+- `imgs`
+- `imgs:prod`
+- `assets`
+- `assets:prod`
+- `views`
+- `views:prod`
 
 ## What it does
 
@@ -61,9 +61,3 @@ That's it folks, you can start coding in the `src/` folder and let the magic hap
 Using gulp as a task runner.
 Webpack as a script bundler, minifier and uglifier
 Babel to transpile JavaScript
-
-## Notes
-
-This project comes with the `.prettierrc` with my configuration. You may want to modify or delete it depending on your team workflow and politic regarding code formatting.
-
-- Deleting the `.prettierrc` will not affect the good working of the project.
