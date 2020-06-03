@@ -1,10 +1,16 @@
 import webpack from 'webpack'
 
+const mainJsFileName = 'app'
+
 module.exports = {
   mode: 'development',
-  entry: `./${process.env.SRC}/${process.env.SRC_SCRIPTS_ENTRY}`,
+  entry: {
+    [mainJsFileName]: `./${process.env.SCRIPTS_FOLDER}/index.js`,
+    otherEntry: `./${process.env.SCRIPTS_FOLDER}/otherEntry.ts`
+  },
   output: {
-    filename: process.env.DEST_OUTPUT_SCRIPT_NAME
+    filename: '[name].js',
+    path: __dirname + process.env.DEST
   },
   devtool: false,
   resolve: {
@@ -34,7 +40,7 @@ module.exports = {
   },
   plugins: [
     new webpack.SourceMapDevToolPlugin({
-      filename: 'app.js.map',
+      filename: '[name].js.map',
       exclude: ['vendor.js']
     })
   ]

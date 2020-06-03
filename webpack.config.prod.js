@@ -1,11 +1,17 @@
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
+const mainJsFileName = 'app'
+
 module.exports = {
   mode: 'production',
-  entry: `./${process.env.SRC}/${process.env.SRC_SCRIPTS_ENTRY}`,
+  entry: {
+    [mainJsFileName]: `./${process.env.SCRIPTS_FOLDER}/index.js`,
+    otherEntry: `./${process.env.SCRIPTS_FOLDER}/otherEntry.ts`
+  },
   output: {
-    filename: process.env.DEST_OUTPUT_SCRIPT_NAME
+    filename: '[name].js',
+    path: __dirname + process.env.DEST
   },
   /* Uglify JS in production */
   resolve: {

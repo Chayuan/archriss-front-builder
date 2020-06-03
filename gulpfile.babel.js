@@ -21,16 +21,16 @@ const destProdPath = `${process.env.DEST}/${process.env.PROD_SUBFOLDER}/`
 const ENABLE_LIVE_RELOAD = process.argv.indexOf('--livereload') >= 0
 
 if (ENABLE_LIVE_RELOAD) {
-  livereload.listen( { start : true } )
+  livereload.listen({ start: true })
 }
 
 const PATHS = {
   src: {
-    views: process.env.SRC + '/' + process.env.SRC_VIEWS,
-    styles: process.env.SRC + '/' + process.env.SRC_STYLES,
-    scripts: process.env.SRC + '/' + process.env.SRC_SCRIPTS,
-    img: process.env.SRC + '/' + process.env.SRC_IMAGES,
-    assets: process.env.SRC + '/' + process.env.SRC_ASSETS
+    views: process.env.VIEWS_FOLDER + '/**/*.twig',
+    styles: process.env.STYLES_FOLDER + '/**/*.scss',
+    scripts: process.env.SCRIPTS_FOLDER + '/**/*',
+    assets: process.env.ASSETS_FOLDER + '/**/*',
+    img: process.env.SRC_IMAGES
   },
   dest: {
     global: process.env.DEST,
@@ -55,7 +55,7 @@ function views(isDev) {
   return gulp
     .src(PATHS.src.views)
     .pipe(twig())
-    .pipe(gulp.dest(isDev ? PATHS.dest.viewsDev : PATHS.dest.viewsProd))    .pipe(gulpif(ENABLE_LIVE_RELOAD, livereload()))
+    .pipe(gulp.dest(isDev ? PATHS.dest.viewsDev : PATHS.dest.viewsProd)).pipe(gulpif(ENABLE_LIVE_RELOAD, livereload()))
 }
 
 function styles(isDev) {
