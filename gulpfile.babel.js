@@ -29,7 +29,6 @@ const PATHS = {
     views: process.env.VIEWS_FOLDER + '/**/*.twig',
     styles: process.env.STYLES_FOLDER + '/**/*.scss',
     scripts: process.env.SCRIPTS_FOLDER + '/**/*',
-    assets: process.env.ASSETS_FOLDER + '/**/*',
     img: process.env.SRC_IMAGES
   },
   dest: {
@@ -41,9 +40,7 @@ const PATHS = {
     scriptsDev: destDevPath + process.env.DEST_SCRIPTS,
     scriptsProd: destProdPath + process.env.DEST_SCRIPTS,
     imgDev: destDevPath + process.env.DEST_IMAGES,
-    imgProd: destProdPath + process.env.DEST_IMAGES,
-    assetsDev: destDevPath + process.env.DEST_ASSETS,
-    assetsProd: destProdPath + process.env.DEST_ASSETS
+    imgProd: destProdPath + process.env.DEST_IMAGES
   }
 }
 
@@ -127,13 +124,6 @@ function images(isDev) {
     .pipe(gulpif(ENABLE_LIVE_RELOAD, livereload()))
 }
 
-function assets(isDev) {
-  return gulp
-    .src(PATHS.src.assets)
-    .pipe(gulp.dest(isDev ? PATHS.dest.assetsDev : PATHS.dest.assetsProd))
-    .pipe(gulpif(ENABLE_LIVE_RELOAD, livereload()))
-}
-
 function scripts(isDev) {
   return gulp
     .src('src/js/index.js')
@@ -150,7 +140,6 @@ async function build(isDev = true) {
     styles(isDev)
     scripts(isDev)
     images(isDev)
-    assets(isDev)
   } catch (err) {
     console.error(err)
   }
@@ -168,7 +157,6 @@ async function watch() {
     styles(true)
     scripts(true)
     images(true)
-    assets(true)
   } catch (err) {
     console.error(err)
   }
@@ -176,7 +164,6 @@ async function watch() {
   gulp.watch(PATHS.src.views, views)
   gulp.watch(PATHS.src.scripts, scripts)
   gulp.watch(PATHS.src.img, images)
-  gulp.watch(PATHS.src.assets, assets)
 }
 
 gulp.task('build', build)
@@ -265,28 +252,6 @@ gulp.task('imgs:prod', () => {
   return new Promise((resolve, reject) => {
     try {
       images(false)
-      resolve()
-    } catch (e) {
-      reject(e)
-    }
-  })
-})
-
-gulp.task('assets', () => {
-  return new Promise((resolve, reject) => {
-    try {
-      assets(true)
-      resolve()
-    } catch (e) {
-      reject(e)
-    }
-  })
-})
-
-gulp.task('assets:prod', () => {
-  return new Promise((resolve, reject) => {
-    try {
-      assets(false)
       resolve()
     } catch (e) {
       reject(e)

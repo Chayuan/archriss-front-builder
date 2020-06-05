@@ -27,8 +27,6 @@ That's it folks, you can start coding in the `src/` folder and let the magic hap
 - `styles:prod`
 - `imgs`
 - `imgs:prod`
-- `assets`
-- `assets:prod`
 - `views`
 - `views:prod`
 
