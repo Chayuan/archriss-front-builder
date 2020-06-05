@@ -12,10 +12,6 @@
     "styles:prod": "gulp styles:prod",
     "views": "gulp views",
     "views:prod": "gulp views:prod",
-    "imgs": "gulp imgs",
-    "imgs:prod": "gulp imgs:prod",
-    "assets": "gulp assets",
-    "assets:prod": "gulp assets:prod",
     "watch": "gulp watch",
     "dev": "npm run watch",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -55,7 +51,6 @@
     "dotenv": "^8.0.0",
     "gulp": "^4.0.2",
     "gulp-if": "^3.0.0",
-    "gulp-imagemin": "^6.1.1",
     "gulp-livereload": "^4.0.2",
     "gulp-postcss": "^8.0.0",
     "gulp-sass": "^4.0.2",
