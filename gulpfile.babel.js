@@ -28,8 +28,7 @@ const PATHS = {
   src: {
     views: process.env.VIEWS_FOLDER + '/**/*.twig',
     styles: process.env.STYLES_FOLDER + '/**/*.scss',
-    scripts: process.env.SCRIPTS_FOLDER + '/**/*',
-    img: process.env.SRC_IMAGES
+    scripts: process.env.SCRIPTS_FOLDER + '/**/*'
   },
   dest: {
     global: process.env.DEST,
@@ -38,9 +37,7 @@ const PATHS = {
     stylesDev: destDevPath + process.env.DEST_STYLES,
     stylesProd: destProdPath + process.env.DEST_STYLES,
     scriptsDev: destDevPath + process.env.DEST_SCRIPTS,
-    scriptsProd: destProdPath + process.env.DEST_SCRIPTS,
-    imgDev: destDevPath + process.env.DEST_IMAGES,
-    imgProd: destProdPath + process.env.DEST_IMAGES
+    scriptsProd: destProdPath + process.env.DEST_SCRIPTS
   }
 }
 
@@ -101,29 +98,6 @@ function styles(isDev) {
   }
 }
 
-function images(isDev) {
-  return gulp
-    .src(PATHS.src.img)
-    .pipe(
-      imagemin(
-        [
-          imagemin.gifsicle({ interlaced: true, optimizationLevel: 2 }),
-          imagemin.jpegtran({ progressive: true }),
-          imagemin.optipng({ optimizationLevel: 4 }),
-          imagemin.svgo({
-            // https://github.com/svg/svgo#what-it-can-do
-            plugins: [{ removeViewBox: true }, { cleanupIDs: false }]
-          })
-        ],
-        {
-          verbose: false
-        }
-      )
-    )
-    .pipe(gulp.dest(isDev ? PATHS.dest.imgDev : PATHS.dest.imgProd))
-    .pipe(gulpif(ENABLE_LIVE_RELOAD, livereload()))
-}
-
 function scripts(isDev) {
   return gulp
     .src('src/js/index.js')
@@ -139,7 +113,6 @@ async function build(isDev = true) {
     views(isDev)
     styles(isDev)
     scripts(isDev)
-    images(isDev)
   } catch (err) {
     console.error(err)
   }
@@ -156,14 +129,12 @@ async function watch() {
     views(true)
     styles(true)
     scripts(true)
-    images(true)
   } catch (err) {
     console.error(err)
   }
   gulp.watch(PATHS.src.styles, styles)
   gulp.watch(PATHS.src.views, views)
   gulp.watch(PATHS.src.scripts, scripts)
-  gulp.watch(PATHS.src.img, images)
 }
 
 gulp.task('build', build)
@@ -237,24 +208,3 @@ gulp.task('views:prod', () => {
   })
 })
 
-gulp.task('imgs', () => {
-  return new Promise((resolve, reject) => {
-    try {
-      images(true)
-      resolve()
-    } catch (e) {
-      reject(e)
-    }
-  })
-})
-
-gulp.task('imgs:prod', () => {
-  return new Promise((resolve, reject) => {
-    try {
-      images(false)
-      resolve()
-    } catch (e) {
-      reject(e)
-    }
-  })
-})

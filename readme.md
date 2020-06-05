@@ -25,16 +25,10 @@ That's it folks, you can start coding in the `src/` folder and let the magic hap
 - `scripts:prod`
 - `styles`
 - `styles:prod`
-- `imgs`
-- `imgs:prod`
 - `views`
 - `views:prod`
 
 ## What it does
-
-- Minify and copy image from `src/imgs` to `dist/imgs` (path are editable)
-
-  > You should not rely on gulp minifier to minify your images though, and a pre-minification is strongly recommanded
 
 - Compile scss files to a single `app.css` file (with a sourcemap for developpement)
 
