@@ -9,19 +9,12 @@ import postcss from 'gulp-postcss'
 import sourcemaps from 'gulp-sourcemaps'
 import sass from 'gulp-sass'
 import webpack from 'webpack-stream'
-import livereload from 'gulp-livereload'
 import gulpif from 'gulp-if'
 
 dotenv.config()
 
 const destDevPath = `${process.env.DEST}/${process.env.DEV_SUBFOLDER}/`
 const destProdPath = `${process.env.DEST}/${process.env.PROD_SUBFOLDER}/`
-
-const ENABLE_LIVE_RELOAD = process.argv.indexOf('--livereload') >= 0
-
-if (ENABLE_LIVE_RELOAD) {
-  livereload.listen({ start: true })
-}
 
 const PATHS = {
   src: {
@@ -48,7 +41,7 @@ function views(isDev) {
   return gulp
     .src(PATHS.src.views)
     .pipe(twig())
-    .pipe(gulp.dest(isDev ? PATHS.dest.viewsDev : PATHS.dest.viewsProd)).pipe(gulpif(ENABLE_LIVE_RELOAD, livereload()))
+    .pipe(gulp.dest(isDev ? PATHS.dest.viewsDev : PATHS.dest.viewsProd))
 }
 
 function styles(isDev) {
@@ -86,7 +79,6 @@ function styles(isDev) {
       .pipe(postcss(postcssPlugins))
       .pipe(sourcemaps.write('.'))
       .pipe(gulp.dest(PATHS.dest.stylesDev))
-      .pipe(gulpif(ENABLE_LIVE_RELOAD, livereload()))
   } else {
     // Production mode
     return gulp
@@ -102,7 +94,6 @@ function scripts(isDev) {
     .src('src/js/index.js')
     .pipe(webpack(require(`./webpack.config.${isDev ? 'dev' : 'prod'}.js`)))
     .pipe(gulp.dest(isDev ? PATHS.dest.scriptsDev : PATHS.dest.scriptsProd))
-    .pipe(gulpif(ENABLE_LIVE_RELOAD, livereload()))
 }
 
 async function build(isDev = true) {
