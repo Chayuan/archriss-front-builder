@@ -1,6 +1,6 @@
 {
   "name": "chayuan-front-builder",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Boilerplate for blade templating, scss compilation and JS Transpilation",
   "main": "index.js",
   "scripts": {
@@ -8,9 +8,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "scripts": "bin/script.js",
-    "styles": "bin/styles.js",
-    "build": "bin/build.js"
+    "scripts": "./bin/script.js",
+    "styles": "./bin/styles.js",
+    "build": "./bin/build.js"
   },
   "browserslist": [
     "last 1 version",
