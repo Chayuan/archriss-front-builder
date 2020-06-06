@@ -26,12 +26,15 @@ DEST_SCRIPTS=name_of_dest_stylesheets_folder
 
 Build :
 
-- developpement mode `yarn build`
+- development mode `yarn build`
+- production mode `yarn build:prod`
 
-## List of specific tasks (lust be prefixed with yarn)
+## List of specific tasks (must be prefixed with yarn)
 
 - `scripts`
+- `scripts:prod`
 - `styles`
+- `styles:prod`
 
 ## What it does
 

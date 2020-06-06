@@ -54,14 +54,14 @@ var PATHS = {
   }
 };
 
-function styles(isDev) {
+function styles(isProd) {
   var postcssPlugins = [(0, _cssMqpacker.default)({
     sort: true
   }), (0, _autoprefixer.default)({
     flexbox: 'no-2009'
   })]; // Production mode -> minify CSS
 
-  if (!isDev) {
+  if (isProd) {
     postcssPlugins.push((0, _cssnano.default)({
       preset: ['default', {
         discardComments: {
@@ -72,7 +72,7 @@ function styles(isDev) {
     }));
   }
 
-  if (isDev) {
+  if (!isProd) {
     // Development mode
     return _gulp.default.src(PATHS.src.styles).pipe(_gulpSourcemaps.default.init()).pipe((0, _gulpSass.default)()).pipe((0, _gulpPostcss.default)(postcssPlugins)).pipe(_gulpSourcemaps.default.write('.')).pipe(_gulp.default.dest("".concat(PATHS.dest.global, "/").concat(PATHS.dest.styles)));
   } else {

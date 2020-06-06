@@ -22,7 +22,7 @@ const PATHS = {
   }
 }
 
-export function styles(isDev) {
+export function styles(isProd) {
   const postcssPlugins = [
     mqpacker({
       sort: true
@@ -33,7 +33,7 @@ export function styles(isDev) {
   ]
 
   // Production mode -> minify CSS
-  if (!isDev) {
+  if (isProd) {
     postcssPlugins.push(
       cssnano({
         preset: [
@@ -48,7 +48,7 @@ export function styles(isDev) {
     )
   }
 
-  if (isDev) {
+  if (!isProd) {
     // Development mode
     return gulp
       .src(PATHS.src.styles)

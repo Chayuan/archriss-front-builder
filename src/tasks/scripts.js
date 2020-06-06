@@ -9,7 +9,7 @@ dotenv.config()
 
 export async function scripts(isProd = false) {
   try {
-    console.log('\n\x1b[1mSCRIPTS\x1b[0m')
+    console.log(`\n\x1b[1mSCRIPTS-${isProd ? 'PROD' : 'DEV'}\x1b[0m`)
 
     if (!process.env.DEST) {
       console.log(' \x1b[33mWarning\x1b[0m', 'missing env variable : DEST')
@@ -36,7 +36,8 @@ function cleanOldScripts(isProd = false) {
   return new Promise((resolve, reject) => {
     try {
       // clean old script folder
-      rimraf(isProd ? webpackProd.destinationPath : webpackDev.destinationPath, () => {})
+      rimraf(isProd ? webpackProd.destinationPath : webpackDev.destinationPath, () => {
+      })
       resolve()
     } catch (e) {
       reject('cannot delete script folder')

@@ -10,8 +10,11 @@
   },
   "bin": {
     "scripts": "./bin/scripts.js",
+    "scripts:prod": "./bin/scripts:prod.js",
     "styles": "./bin/styles.js",
-    "build": "./bin/build.js"
+    "styles:prod": "./bin/styles:prod.js",
+    "build": "./bin/build.js",
+    "build:prod": "./bin/build:prod.js"
   },
   "browserslist": [
     "last 1 version",

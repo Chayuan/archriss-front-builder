@@ -5,9 +5,9 @@ import defaultConfig from '../defaultConfig'
 dotenv.config()
 
 
-export async function styles() {
+export async function styles(isProd = false) {
   try {
-    console.log('\n\x1b[1mSTYLES\x1b[0m')
+    console.log(`\n\x1b[1mSTYLES-${isProd ? 'PROD' : 'DEV'}\x1b[0m`)
 
     if (!process.env.DEST) {
       console.log('\x1b[33mWarning\x1b[0m', 'missing env variable : DEST')
@@ -22,7 +22,7 @@ export async function styles() {
       console.log(`└─ defaulting to ${defaultConfig.STYLES_FOLDER}`)
     }
 
-    await compileScss()
+    await compileScss(isProd)
   } catch (e) {
     console.log(' \x1b[31mError\x1b[0m ', 'styles task failed')
     console.log(' \x1b[31mError\x1b[0m ', e)
@@ -30,10 +30,10 @@ export async function styles() {
 }
 
 
-async function compileScss() {
+async function compileScss(isProd = false) {
   return new Promise((resolve, reject) => {
     try {
-      gulpStyles()
+      gulpStyles(isProd)
       console.log(' \x1b[32mSuccess\x1b[0m', 'styles')
       resolve()
     } catch (e) {

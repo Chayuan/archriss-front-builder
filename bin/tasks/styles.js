@@ -31,12 +31,15 @@ function styles() {
 
 function _styles() {
   _styles = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+    var isProd,
+        _args = arguments;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _context.prev = 0;
-            console.log('\n\x1b[1mSTYLES\x1b[0m');
+            isProd = _args.length > 0 && _args[0] !== undefined ? _args[0] : false;
+            _context.prev = 1;
+            console.log("\n\x1B[1mSTYLES-".concat(isProd ? 'PROD' : 'DEV', "\x1B[0m"));
 
             if (!process.env.DEST) {
               console.log('\x1b[33mWarning\x1b[0m', 'missing env variable : DEST');
@@ -53,25 +56,25 @@ function _styles() {
               console.log("\u2514\u2500 defaulting to ".concat(_defaultConfig.default.STYLES_FOLDER));
             }
 
-            _context.next = 7;
-            return compileScss();
+            _context.next = 8;
+            return compileScss(isProd);
 
-          case 7:
-            _context.next = 13;
+          case 8:
+            _context.next = 14;
             break;
 
-          case 9:
-            _context.prev = 9;
-            _context.t0 = _context["catch"](0);
+          case 10:
+            _context.prev = 10;
+            _context.t0 = _context["catch"](1);
             console.log(' \x1b[31mError\x1b[0m ', 'styles task failed');
             console.log(' \x1b[31mError\x1b[0m ', _context.t0);
 
-          case 13:
+          case 14:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[0, 9]]);
+    }, _callee, null, [[1, 10]]);
   }));
   return _styles.apply(this, arguments);
 }
@@ -82,13 +85,16 @@ function compileScss() {
 
 function _compileScss() {
   _compileScss = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+    var isProd,
+        _args2 = arguments;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
+            isProd = _args2.length > 0 && _args2[0] !== undefined ? _args2[0] : false;
             return _context2.abrupt("return", new Promise(function (resolve, reject) {
               try {
-                (0, _gulpfile.styles)();
+                (0, _gulpfile.styles)(isProd);
                 console.log(' \x1b[32mSuccess\x1b[0m', 'styles');
                 resolve();
               } catch (e) {
@@ -96,7 +102,7 @@ function _compileScss() {
               }
             }));
 
-          case 1:
+          case 2:
           case "end":
             return _context2.stop();
         }

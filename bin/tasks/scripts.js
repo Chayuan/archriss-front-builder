@@ -51,7 +51,7 @@ function _scripts() {
           case 0:
             isProd = _args.length > 0 && _args[0] !== undefined ? _args[0] : false;
             _context.prev = 1;
-            console.log('\n\x1b[1mSCRIPTS\x1b[0m');
+            console.log("\n\x1B[1mSCRIPTS-".concat(isProd ? 'PROD' : 'DEV', "\x1B[0m"));
 
             if (!process.env.DEST) {
               console.log(' \x1b[33mWarning\x1b[0m', 'missing env variable : DEST');
