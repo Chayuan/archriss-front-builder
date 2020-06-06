@@ -15,6 +15,8 @@ var _webpack = _interopRequireDefault(require("webpack"));
 
 var _rimraf = _interopRequireDefault(require("rimraf"));
 
+var _dotenv = _interopRequireDefault(require("dotenv"));
+
 var _nodeLogger = _interopRequireDefault(require("../utils/nodeLogger"));
 
 var _webpackConfigDev = require("../webpack/webpack.config.dev.js");
@@ -24,6 +26,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+_dotenv.default.config();
 
 function scripts() {
   return _scripts.apply(this, arguments);
@@ -39,29 +43,32 @@ function _scripts() {
 
             _nodeLogger.default.log('SCRIPTS');
 
-            _context.next = 4;
+            if (!process.env.DEST) _nodeLogger.default.warn().log('Missing env variable : DEST');
+            if (!process.env.DEST_SCRIPTS) _nodeLogger.default.warn().log('Missing env variable : DEST_SCRIPTS');
+            if (!process.env.SCRIPTS_FOLDER) _nodeLogger.default.warn().log('Missing env variable : SCRIPTS_FOLDER');
+            _context.next = 7;
             return cleanOldScripts();
 
-          case 4:
-            _context.next = 6;
+          case 7:
+            _context.next = 9;
             return runWebpack();
 
-          case 6:
-            _context.next = 11;
+          case 9:
+            _context.next = 14;
             break;
 
-          case 8:
-            _context.prev = 8;
+          case 11:
+            _context.prev = 11;
             _context.t0 = _context["catch"](0);
 
             _nodeLogger.default.error(_context.t0.message);
 
-          case 11:
+          case 14:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[0, 8]]);
+    }, _callee, null, [[0, 11]]);
   }));
   return _scripts.apply(this, arguments);
 }

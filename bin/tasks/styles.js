@@ -15,11 +15,15 @@ var _nodeLogger = _interopRequireDefault(require("../utils/nodeLogger"));
 
 var _gulpfile = require("../gulpfile.babel");
 
+var _dotenv = _interopRequireDefault(require("dotenv"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+_dotenv.default.config();
 
 function styles() {
   return _styles.apply(this, arguments);
@@ -35,25 +39,28 @@ function _styles() {
 
             _nodeLogger.default.log('STYLES');
 
-            _context.next = 4;
+            if (!process.env.DEST) _nodeLogger.default.warn().log('Missing env variable : DEST');
+            if (!process.env.DEST_STYLES) _nodeLogger.default.warn().log('Missing env variable : DEST_STYLES');
+            if (!process.env.STYLES_FOLDER) _nodeLogger.default.warn().log('Missing env variable : STYLES_FOLDER');
+            _context.next = 7;
             return compileScss();
 
-          case 4:
-            _context.next = 9;
+          case 7:
+            _context.next = 12;
             break;
 
-          case 6:
-            _context.prev = 6;
+          case 9:
+            _context.prev = 9;
             _context.t0 = _context["catch"](0);
 
             _nodeLogger.default.error(_context.t0.message);
 
-          case 9:
+          case 12:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[0, 6]]);
+    }, _callee, null, [[0, 9]]);
   }));
   return _styles.apply(this, arguments);
 }

@@ -1,10 +1,11 @@
 import webpack from 'webpack'
 import webpackBabelConf from './webpackBabelConf'
 import dotenv from 'dotenv'
-
+import logger from '../utils/nodeLogger'
 
 dotenv.config()
 const mainJsFileName = 'app'
+
 export const destinationPath = process.cwd() + '/' + process.env.DEST + '/' + process.env.DEST_SCRIPTS
 
 export const config = {

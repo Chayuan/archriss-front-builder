@@ -66,6 +66,12 @@ class Logger {
     return this
   }
 
+  warn() {
+    process.stdout.write(BgYellow)
+    process.stdout.write(FgBlack)
+    return this
+  }
+
   redBg() {
     return this.error()
   }

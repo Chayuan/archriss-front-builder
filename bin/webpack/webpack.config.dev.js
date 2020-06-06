@@ -11,6 +11,8 @@ var _webpackBabelConf = _interopRequireDefault(require("./webpackBabelConf"));
 
 var _dotenv = _interopRequireDefault(require("dotenv"));
 
+var _nodeLogger = _interopRequireDefault(require("../utils/nodeLogger"));
+
 var _entry;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
