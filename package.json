@@ -1,6 +1,6 @@
 {
   "name": "chayuan-front-builder",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Boilerplate for blade templating, scss compilation and JS Transpilation",
   "main": "index.js",
   "scripts": {
