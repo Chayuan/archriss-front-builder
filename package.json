@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "scripts": "./bin/script.js",
+    "scripts": "./bin/scripts.js",
     "styles": "./bin/styles.js",
     "build": "./bin/build.js"
   },
