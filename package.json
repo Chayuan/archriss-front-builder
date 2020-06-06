@@ -1,11 +1,16 @@
 {
   "name": "chayuan-front-builder",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Boilerplate for blade templating, scss compilation and JS Transpilation",
   "main": "index.js",
   "scripts": {
     "compile": "rimraf bin && babel src -d bin",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "scripts": "bin/script.js",
+    "styles": "bin/styles.js",
+    "build": "bin/build.js"
   },
   "browserslist": [
     "last 1 version",

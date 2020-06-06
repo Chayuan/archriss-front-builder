@@ -108,28 +108,25 @@ function _watch() {
           case 3:
             views(true);
             styles(true);
-            scripts(true);
-            _context.next = 11;
+            _context.next = 10;
             break;
 
-          case 8:
-            _context.prev = 8;
+          case 7:
+            _context.prev = 7;
             _context.t0 = _context["catch"](0);
             console.error(_context.t0);
 
-          case 11:
+          case 10:
             _gulp.default.watch(PATHS.src.styles, styles);
 
             _gulp.default.watch(PATHS.src.views, views);
 
-            _gulp.default.watch(PATHS.src.scripts, scripts);
-
-          case 14:
+          case 12:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[0, 8]]);
+    }, _callee, null, [[0, 7]]);
   }));
   return _watch.apply(this, arguments);
 }

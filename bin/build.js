@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 "use strict";
 
 require("core-js/modules/es.object.to-string");
