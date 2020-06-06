@@ -23,6 +23,10 @@ export async function scripts(isProd = false) {
       console.log(' \x1b[33mWarning\x1b[0m', 'missing env variable : SCRIPTS_FOLDER')
       console.log(` └─ defaulting to ${defaultConfig.SCRIPTS_FOLDER}`)
     }
+    if (!process.env.SCRIPTS_ENTRY_POINTS) {
+      console.log(' \x1b[33mWarning\x1b[0m', 'missing env variable : SCRIPTS_ENTRY_POINTS')
+      console.log(` └─ defaulting to ${defaultConfig.SCRIPTS_ENTRY_POINTS}`)
+    }
 
     await cleanOldScripts(isProd)
     await runWebpack(isProd)

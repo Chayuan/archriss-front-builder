@@ -68,29 +68,34 @@ function _scripts() {
               console.log(" \u2514\u2500 defaulting to ".concat(_defaultConfig.default.SCRIPTS_FOLDER));
             }
 
-            _context.next = 8;
+            if (!process.env.SCRIPTS_ENTRY_POINTS) {
+              console.log(' \x1b[33mWarning\x1b[0m', 'missing env variable : SCRIPTS_ENTRY_POINTS');
+              console.log(" \u2514\u2500 defaulting to ".concat(_defaultConfig.default.SCRIPTS_ENTRY_POINTS));
+            }
+
+            _context.next = 9;
             return cleanOldScripts(isProd);
 
-          case 8:
-            _context.next = 10;
+          case 9:
+            _context.next = 11;
             return runWebpack(isProd);
 
-          case 10:
-            _context.next = 16;
+          case 11:
+            _context.next = 17;
             break;
 
-          case 12:
-            _context.prev = 12;
+          case 13:
+            _context.prev = 13;
             _context.t0 = _context["catch"](1);
             console.log(' \x1b[31mError\x1b[0m ', 'scripts task failed');
             console.log(' \x1b[31mError\x1b[0m ', _context.t0);
 
-          case 16:
+          case 17:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[1, 12]]);
+    }, _callee, null, [[1, 13]]);
   }));
   return _scripts.apply(this, arguments);
 }

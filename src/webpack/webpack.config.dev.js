@@ -4,18 +4,25 @@ import dotenv from 'dotenv'
 import defaultConfig from '../defaultConfig'
 
 dotenv.config()
-const mainJsFileName = 'app'
 
-const dest =  (process.env.DEST || defaultConfig.DEST)
+const dest = (process.env.DEST || defaultConfig.DEST)
 const destScripts = (process.env.DEST_SCRIPTS || defaultConfig.DEST_SCRIPTS)
 const scriptsFolder = (process.env.SCRIPTS_FOLDER || defaultConfig.SCRIPTS_FOLDER)
+const entryPoints = (process.env.SCRIPTS_ENTRY_POINTS || defaultConfig.SCRIPTS_ENTRY_POINTS).split(' ')
+
 export const destinationPath = process.cwd() + '/' + dest + '/' + destScripts
 
 export const config = {
   mode: 'development',
   entry: {
-    [mainJsFileName]: `./${scriptsFolder}/index.js`,
-    otherEntry: `./${scriptsFolder}/otherEntry.ts`
+    ...entryPoints.reduce((acc, value) => {
+      const splittedName = value.split('.')
+      const key = `${splittedName.slice(0, splittedName.length - 1).join('')}`
+      return {
+        ...acc,
+        [key]: `./${scriptsFolder}/${value}`
+      }
+    }, {})
   },
   output: {
     filename: '[name].js',

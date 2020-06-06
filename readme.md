@@ -12,6 +12,8 @@ In your project, create a `.env` file
 and specify the following variables
 
 ```
+SCRIPTS_ENTRY_POINTS=your_entry_point_separated_with_spaces
+
 SCRIPTS_FOLDER=./path_to_scripts
 STYLES_FOLDER=./path_to_scss_files
 
@@ -22,7 +24,6 @@ DEST_SCRIPTS=name_of_dest_stylesheets_folder
 ```
 
 ## How to use
-
 
 Build :
 
@@ -59,7 +60,10 @@ Build :
 
 ## How to add a javascript entry
 
-// TODO
+Specify the list of your javascript entry points in the `.env`
+like so
+
+`SCRIPTS_ENTRY_POINTS=index.js app.js`
 
 ## Under the hood
 
