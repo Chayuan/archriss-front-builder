@@ -1,6 +1,6 @@
 {
   "name": "chayuan-front-builder",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Boilerplate for blade templating, scss compilation and JS Transpilation",
   "main": "index.js",
   "homepage": "https://github.com/Chayuan/archriss-front-builder",
