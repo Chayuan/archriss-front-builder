@@ -1,8 +1,13 @@
 import webpack from 'webpack'
+import webpackBabelConf from './webpackBabelConf'
+import dotenv from 'dotenv'
 
+
+dotenv.config()
 const mainJsFileName = 'app'
+export const destinationPath = process.cwd() + '/' + process.env.DEST + '/' + process.env.DEST_SCRIPTS
 
-module.exports = {
+export const config = {
   mode: 'development',
   entry: {
     [mainJsFileName]: `./${process.env.SCRIPTS_FOLDER}/index.js`,
@@ -10,10 +15,11 @@ module.exports = {
   },
   output: {
     filename: '[name].js',
-    path: __dirname + process.env.DEST
+    path: destinationPath
   },
   devtool: false,
   resolve: {
+    mainFiles: ['index'],
     extensions: ['.js', '.jsx', '.ts', '.tsx']
   },
   module: {
@@ -21,12 +27,16 @@ module.exports = {
       {
         test: /\.ts(x?)$/,
         exclude: /node_modules/,
-        use: ['babel-loader', 'ts-loader']
+        use: [{
+          loader: 'babel-loader', options: webpackBabelConf
+        }, 'ts-loader']
       },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        loader: 'babel-loader'
+        use: [{
+          loader: 'babel-loader', options: webpackBabelConf
+        }]
       },
       {
         test: /\.css$/,

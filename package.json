@@ -4,16 +4,7 @@
   "description": "Boilerplate for blade templating, scss compilation and JS Transpilation",
   "main": "index.js",
   "scripts": {
-    "build": "gulp build",
-    "build:prod": "gulp build:prod",
-    "scripts": "gulp scripts",
-    "scripts:prod": "gulp scripts:prod",
-    "styles": "gulp styles",
-    "styles:prod": "gulp styles:prod",
-    "views": "gulp views",
-    "views:prod": "gulp views:prod",
-    "watch": "gulp watch",
-    "dev": "npm run watch",
+    "compile": "rimraf bin && babel src -d bin",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "browserslist": [
@@ -61,8 +52,7 @@
     "react-dom": "^16.10.2",
     "sass-loader": "^7.1.0",
     "uglifyjs-webpack-plugin": "^2.1.3",
-    "webpack": "^4.41.0",
-    "webpack-stream": "^5.2.1"
+    "webpack": "^4.41.0"
   },
   "devDependencies": {
     "@types/react": "^16.9.5",
