@@ -1,21 +1,26 @@
-# twig-sass-boilerplate
+# chayuan-front-builder
+
+It's time we allow front end developers to actually focus on the code and stop wasting their time configurating the stack, wich is becoming more and more complex everyday.
+
+**chayuan-front-builder** is an un-opinionated package to allow consistent frontend development from a project to another with minimal configuration but yet plenty of customization possibilities.
 
 ## Installation
 
 `yarn add chayuan-front-builder`
+
 In your project, create a `.env` file
+and specify the following variables
 
-Those are the variables of the `.env` file to specify
 ```
-DEST=dist
+SCRIPTS_FOLDER=./path_to_scripts
+STYLES_FOLDER=./path_to_scss_files
+VIEWS_FOLDER=./path_to_twig_files
 
-SCRIPTS_FOLDER=./src/js
-STYLES_FOLDER=./src/scss
-VIEWS_FOLDER=./src/views
+DEST=name_of_destination_folder
 
-DEST_VIEWS=views
-DEST_STYLES=css
-DEST_SCRIPTS=js
+DEST_VIEWS=name_of_dest_view_folder
+DEST_STYLES=name_of_dest_stylesheets_folder
+DEST_SCRIPTS=name_of_dest_stylesheets_folder
 ```
 
 ## How to use
