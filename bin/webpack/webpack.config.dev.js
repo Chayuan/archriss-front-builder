@@ -24,11 +24,12 @@ _dotenv.default.config();
 var mainJsFileName = 'app';
 var dest = process.env.DEST || _defaultConfig.default.DEST;
 var destScripts = process.env.DEST_SCRIPTS || _defaultConfig.default.DEST_SCRIPTS;
+var scriptsFolder = process.env.SCRIPTS_FOLDER || _defaultConfig.default.SCRIPTS_FOLDER;
 var destinationPath = process.cwd() + '/' + dest + '/' + destScripts;
 exports.destinationPath = destinationPath;
 var config = {
   mode: 'development',
-  entry: (_entry = {}, _defineProperty(_entry, mainJsFileName, "./".concat(destScripts, "/index.js")), _defineProperty(_entry, "otherEntry", "./".concat(destScripts, "/otherEntry.ts")), _entry),
+  entry: (_entry = {}, _defineProperty(_entry, mainJsFileName, "./".concat(scriptsFolder, "/index.js")), _defineProperty(_entry, "otherEntry", "./".concat(scriptsFolder, "/otherEntry.ts")), _entry),
   output: {
     filename: '[name].js',
     path: destinationPath

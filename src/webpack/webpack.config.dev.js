@@ -8,13 +8,14 @@ const mainJsFileName = 'app'
 
 const dest =  (process.env.DEST || defaultConfig.DEST)
 const destScripts = (process.env.DEST_SCRIPTS || defaultConfig.DEST_SCRIPTS)
+const scriptsFolder = (process.env.SCRIPTS_FOLDER || defaultConfig.SCRIPTS_FOLDER)
 export const destinationPath = process.cwd() + '/' + dest + '/' + destScripts
 
 export const config = {
   mode: 'development',
   entry: {
-    [mainJsFileName]: `./${destScripts}/index.js`,
-    otherEntry: `./${destScripts}/otherEntry.ts`
+    [mainJsFileName]: `./${scriptsFolder}/index.js`,
+    otherEntry: `./${scriptsFolder}/otherEntry.ts`
   },
   output: {
     filename: '[name].js',

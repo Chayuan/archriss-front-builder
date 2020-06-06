@@ -1,5 +1,7 @@
 "use strict";
 
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 require("core-js/modules/es.object.to-string");
 
 require("core-js/modules/es.promise");
@@ -17,11 +19,15 @@ var _rimraf = _interopRequireDefault(require("rimraf"));
 
 var _dotenv = _interopRequireDefault(require("dotenv"));
 
-var _nodeLogger = _interopRequireDefault(require("../utils/nodeLogger"));
+var webpackDev = _interopRequireWildcard(require("../webpack/webpack.config.dev.js"));
 
-var _webpackConfigDev = require("../webpack/webpack.config.dev.js");
+var webpackProd = _interopRequireWildcard(require("../webpack/webpack.config.prod.js"));
 
 var _defaultConfig = _interopRequireDefault(require("../defaultConfig"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -37,56 +43,67 @@ function scripts() {
 
 function _scripts() {
   _scripts = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+    var isProd,
+        _args = arguments;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _context.prev = 0;
+            isProd = _args.length > 0 && _args[0] !== undefined ? _args[0] : false;
+            _context.prev = 1;
+            console.log('\n\x1b[1mSCRIPTS\x1b[0m');
 
-            _nodeLogger.default.log('SCRIPTS').log();
+            if (!process.env.DEST) {
+              console.log(' \x1b[33mWarning\x1b[0m', 'missing env variable : DEST');
+              console.log(" \u2514\u2500 defaulting to ".concat(_defaultConfig.default.DEST));
+            }
 
-            if (!process.env.DEST) _nodeLogger.default.warn().log('Missing env variable : DEST').log("\u2514\u2500 defaulting to ".concat(_defaultConfig.default.DEST)).log();
-            if (!process.env.DEST_SCRIPTS) _nodeLogger.default.warn().log('Missing env variable : DEST_SCRIPTS').log("\u2514\u2500 defaulting to ".concat(_defaultConfig.default.DEST_SCRIPTS)).log();
-            if (!process.env.SCRIPTS_FOLDER) _nodeLogger.default.warn().log('Missing env variable : SCRIPTS_FOLDER').log("\u2514\u2500 defaulting to ".concat(_defaultConfig.default.SCRIPTS_FOLDER)).log();
-            _context.next = 7;
-            return cleanOldScripts();
+            if (!process.env.DEST_SCRIPTS) {
+              console.log(' \x1b[33mWarning\x1b[0m', 'missing env variable : DEST_SCRIPTS');
+              console.log(" \u2514\u2500 defaulting to ".concat(_defaultConfig.default.DEST_SCRIPTS));
+            }
 
-          case 7:
-            _context.next = 9;
-            return runWebpack();
+            if (!process.env.SCRIPTS_FOLDER) {
+              console.log(' \x1b[33mWarning\x1b[0m', 'missing env variable : SCRIPTS_FOLDER');
+              console.log(" \u2514\u2500 defaulting to ".concat(_defaultConfig.default.SCRIPTS_FOLDER));
+            }
 
-          case 9:
-            _context.next = 14;
+            _context.next = 8;
+            return cleanOldScripts(isProd);
+
+          case 8:
+            _context.next = 10;
+            return runWebpack(isProd);
+
+          case 10:
+            _context.next = 16;
             break;
 
-          case 11:
-            _context.prev = 11;
-            _context.t0 = _context["catch"](0);
+          case 12:
+            _context.prev = 12;
+            _context.t0 = _context["catch"](1);
+            console.log(' \x1b[31mError\x1b[0m ', 'scripts task failed');
+            console.log(' \x1b[31mError\x1b[0m ', _context.t0);
 
-            _nodeLogger.default.error(_context.t0.message);
-
-          case 14:
+          case 16:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[0, 11]]);
+    }, _callee, null, [[1, 12]]);
   }));
   return _scripts.apply(this, arguments);
 }
 
 function cleanOldScripts() {
+  var isProd = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
   return new Promise(function (resolve, reject) {
     try {
       // clean old script folder
-      (0, _rimraf.default)(_webpackConfigDev.destinationPath, function () {
-        _nodeLogger.default.startLoading('cleaning old scripts folder');
-
-        _nodeLogger.default.stopLoading('cleaning old scripts folder', 'success');
-      });
+      (0, _rimraf.default)(isProd ? webpackProd.destinationPath : webpackDev.destinationPath, function () {});
       resolve();
     } catch (e) {
-      reject('Error cleaning old scripts folder');
+      reject('cannot delete script folder');
     }
   });
 }
@@ -97,36 +114,31 @@ function runWebpack() {
 
 function _runWebpack() {
   _runWebpack = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+    var isProd,
+        _args2 = arguments;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
+            isProd = _args2.length > 0 && _args2[0] !== undefined ? _args2[0] : false;
             return _context2.abrupt("return", new Promise(function (resolve, reject) {
               try {
-                var compiler = (0, _webpack.default)(_webpackConfigDev.config);
+                var compiler = (0, _webpack.default)(isProd ? webpackProd.config : webpackDev.config);
                 compiler.run(function (err, stats) {
                   if (err) {
-                    _nodeLogger.default.startLoading('');
-
-                    _nodeLogger.default.stopLoading('Webpack error', 'error');
-
+                    console.log(' \x1b[31mError\x1b[0m ', 'webpack error');
                     reject(err);
                   } else {
-                    _nodeLogger.default.startLoading('');
-
-                    _nodeLogger.default.stopLoading('scripts', 'success');
-
+                    console.log(' \x1b[32mSuccess\x1b[0m', 'scripts');
                     resolve();
                   }
                 });
               } catch (e) {
-                _nodeLogger.default.stopLoading('scripts', 'error');
-
                 reject(e);
               }
             }));
 
-          case 1:
+          case 2:
           case "end":
             return _context2.stop();
         }

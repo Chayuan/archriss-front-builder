@@ -1,21 +1,31 @@
-import logger from '../utils/nodeLogger'
 import { styles as gulpStyles } from '../gulpfile.babel'
 import dotenv from 'dotenv'
 import defaultConfig from '../defaultConfig'
+
 dotenv.config()
 
 
 export async function styles() {
   try {
-    logger.log('STYLES')
+    console.log('\n\x1b[1mSTYLES\x1b[0m')
 
-    if(!process.env.DEST) logger.warn().log('Missing env variable : DEST').log(`└─ defaulting to ${defaultConfig.DEST}`).log()
-    if(!process.env.DEST_STYLES) logger.warn().log('Missing env variable : DEST_STYLES').log(`└─ defaulting to ${defaultConfig.DEST_STYLES}`).log()
-    if(!process.env.STYLES_FOLDER) logger.warn().log('Missing env variable : STYLES_FOLDER').log(`└─ defaulting to ${defaultConfig.STYLES_FOLDER}`).log()
+    if (!process.env.DEST) {
+      console.log('\x1b[33mWarning\x1b[0m', 'missing env variable : DEST')
+      console.log(`└─ defaulting to ${defaultConfig.DEST}`)
+    }
+    if (!process.env.DEST_STYLES) {
+      console.log('\x1b[33mWarning\x1b[0m', 'missing env variable : DEST_STYLES')
+      console.log(`└─ defaulting to ${defaultConfig.DEST_STYLES}`)
+    }
+    if (!process.env.STYLES_FOLDER) {
+      console.log('\x1b[33mWarning\x1b[0m', 'missing env variable : STYLES_FOLDER')
+      console.log(`└─ defaulting to ${defaultConfig.STYLES_FOLDER}`)
+    }
 
     await compileScss()
   } catch (e) {
-    logger.error(e.message)
+    console.log(' \x1b[31mError\x1b[0m ', 'styles task failed')
+    console.log(' \x1b[31mError\x1b[0m ', e)
   }
 }
 
@@ -23,13 +33,10 @@ export async function styles() {
 async function compileScss() {
   return new Promise((resolve, reject) => {
     try {
-      console.log(gulpStyles)
-      logger.startLoading('Styles : Compiling....')
       gulpStyles()
-      logger.stopLoading('Styles', 'success')
+      console.log(' \x1b[32mSuccess\x1b[0m', 'styles')
       resolve()
     } catch (e) {
-      logger.stopLoading('Styles', 'error')
       reject(e)
     }
   })

@@ -1,17 +1,22 @@
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import dotenv from 'dotenv'
+import defaultConfig from '../defaultConfig'
 
 const mainJsFileName = 'app'
 
 dotenv.config()
-const destinationPath = process.cwd() + '/' + process.env.DEST + '/' + process.env.DEST_SCRIPTS
 
-module.exports = {
+const dest =  (process.env.DEST || defaultConfig.DEST)
+const destScripts = (process.env.DEST_SCRIPTS || defaultConfig.DEST_SCRIPTS)
+const scriptsFolder = (process.env.SCRIPTS_FOLDER || defaultConfig.SCRIPTS_FOLDER)
+export const destinationPath = process.cwd() + '/' + dest + '/' + destScripts
+
+export const config = {
   mode: 'production',
   entry: {
-    [mainJsFileName]: `./${process.env.SCRIPTS_FOLDER}/index.js`,
-    otherEntry: `./${process.env.SCRIPTS_FOLDER}/otherEntry.ts`
+    [mainJsFileName]: `./${scriptsFolder}/index.js`,
+    otherEntry: `./${scriptsFolder}/otherEntry.ts`
   },
   output: {
     filename: '[name].js',

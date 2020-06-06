@@ -1,10 +1,17 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.config = exports.destinationPath = void 0;
+
 var _uglifyjsWebpackPlugin = _interopRequireDefault(require("uglifyjs-webpack-plugin"));
 
 var _miniCssExtractPlugin = _interopRequireDefault(require("mini-css-extract-plugin"));
 
 var _dotenv = _interopRequireDefault(require("dotenv"));
+
+var _defaultConfig = _interopRequireDefault(require("../defaultConfig"));
 
 var _entry;
 
@@ -16,10 +23,14 @@ var mainJsFileName = 'app';
 
 _dotenv.default.config();
 
-var destinationPath = process.cwd() + '/' + process.env.DEST + '/' + process.env.DEST_SCRIPTS;
-module.exports = {
+var dest = process.env.DEST || _defaultConfig.default.DEST;
+var destScripts = process.env.DEST_SCRIPTS || _defaultConfig.default.DEST_SCRIPTS;
+var scriptsFolder = process.env.SCRIPTS_FOLDER || _defaultConfig.default.SCRIPTS_FOLDER;
+var destinationPath = process.cwd() + '/' + dest + '/' + destScripts;
+exports.destinationPath = destinationPath;
+var config = {
   mode: 'production',
-  entry: (_entry = {}, _defineProperty(_entry, mainJsFileName, "./".concat(process.env.SCRIPTS_FOLDER, "/index.js")), _defineProperty(_entry, "otherEntry", "./".concat(process.env.SCRIPTS_FOLDER, "/otherEntry.ts")), _entry),
+  entry: (_entry = {}, _defineProperty(_entry, mainJsFileName, "./".concat(scriptsFolder, "/index.js")), _defineProperty(_entry, "otherEntry", "./".concat(scriptsFolder, "/otherEntry.ts")), _entry),
   output: {
     filename: '[name].js',
     path: destinationPath
@@ -51,3 +62,4 @@ module.exports = {
     }]
   }
 };
+exports.config = config;

@@ -11,8 +11,6 @@ exports.styles = styles;
 
 require("regenerator-runtime/runtime");
 
-var _nodeLogger = _interopRequireDefault(require("../utils/nodeLogger"));
-
 var _gulpfile = require("../gulpfile.babel");
 
 var _dotenv = _interopRequireDefault(require("dotenv"));
@@ -38,26 +36,37 @@ function _styles() {
         switch (_context.prev = _context.next) {
           case 0:
             _context.prev = 0;
+            console.log('\n\x1b[1mSTYLES\x1b[0m');
 
-            _nodeLogger.default.log('STYLES');
+            if (!process.env.DEST) {
+              console.log('\x1b[33mWarning\x1b[0m', 'missing env variable : DEST');
+              console.log("\u2514\u2500 defaulting to ".concat(_defaultConfig.default.DEST));
+            }
 
-            if (!process.env.DEST) _nodeLogger.default.warn().log('Missing env variable : DEST').log("\u2514\u2500 defaulting to ".concat(_defaultConfig.default.DEST)).log();
-            if (!process.env.DEST_STYLES) _nodeLogger.default.warn().log('Missing env variable : DEST_STYLES').log("\u2514\u2500 defaulting to ".concat(_defaultConfig.default.DEST_STYLES)).log();
-            if (!process.env.STYLES_FOLDER) _nodeLogger.default.warn().log('Missing env variable : STYLES_FOLDER').log("\u2514\u2500 defaulting to ".concat(_defaultConfig.default.STYLES_FOLDER)).log();
+            if (!process.env.DEST_STYLES) {
+              console.log('\x1b[33mWarning\x1b[0m', 'missing env variable : DEST_STYLES');
+              console.log("\u2514\u2500 defaulting to ".concat(_defaultConfig.default.DEST_STYLES));
+            }
+
+            if (!process.env.STYLES_FOLDER) {
+              console.log('\x1b[33mWarning\x1b[0m', 'missing env variable : STYLES_FOLDER');
+              console.log("\u2514\u2500 defaulting to ".concat(_defaultConfig.default.STYLES_FOLDER));
+            }
+
             _context.next = 7;
             return compileScss();
 
           case 7:
-            _context.next = 12;
+            _context.next = 13;
             break;
 
           case 9:
             _context.prev = 9;
             _context.t0 = _context["catch"](0);
+            console.log(' \x1b[31mError\x1b[0m ', 'styles task failed');
+            console.log(' \x1b[31mError\x1b[0m ', _context.t0);
 
-            _nodeLogger.default.error(_context.t0.message);
-
-          case 12:
+          case 13:
           case "end":
             return _context.stop();
         }
@@ -79,18 +88,10 @@ function _compileScss() {
           case 0:
             return _context2.abrupt("return", new Promise(function (resolve, reject) {
               try {
-                console.log(_gulpfile.styles);
-
-                _nodeLogger.default.startLoading('Styles : Compiling....');
-
                 (0, _gulpfile.styles)();
-
-                _nodeLogger.default.stopLoading('Styles', 'success');
-
+                console.log(' \x1b[32mSuccess\x1b[0m', 'styles');
                 resolve();
               } catch (e) {
-                _nodeLogger.default.stopLoading('Styles', 'error');
-
                 reject(e);
               }
             }));

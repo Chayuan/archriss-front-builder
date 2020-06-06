@@ -1,60 +1,63 @@
 import webpack from 'webpack'
 import rimraf from 'rimraf'
 import dotenv from 'dotenv'
-import logger from '../utils/nodeLogger'
-import { config, destinationPath } from '../webpack/webpack.config.dev.js'
+import * as webpackDev from '../webpack/webpack.config.dev.js'
+import * as webpackProd from '../webpack/webpack.config.prod.js'
 import defaultConfig from '../defaultConfig'
 
 dotenv.config()
 
-export async function scripts() {
+export async function scripts(isProd = false) {
   try {
-    logger.log('SCRIPTS').log()
+    console.log('\n\x1b[1mSCRIPTS\x1b[0m')
 
-    if (!process.env.DEST) logger.warn().log('Missing env variable : DEST').log(`└─ defaulting to ${defaultConfig.DEST}`).log()
-    if (!process.env.DEST_SCRIPTS) logger.warn().log('Missing env variable : DEST_SCRIPTS').log(`└─ defaulting to ${defaultConfig.DEST_SCRIPTS}`).log()
-    if (!process.env.SCRIPTS_FOLDER) logger.warn().log('Missing env variable : SCRIPTS_FOLDER').log(`└─ defaulting to ${defaultConfig.SCRIPTS_FOLDER}`).log()
+    if (!process.env.DEST) {
+      console.log(' \x1b[33mWarning\x1b[0m', 'missing env variable : DEST')
+      console.log(` └─ defaulting to ${defaultConfig.DEST}`)
+    }
+    if (!process.env.DEST_SCRIPTS) {
+      console.log(' \x1b[33mWarning\x1b[0m', 'missing env variable : DEST_SCRIPTS')
+      console.log(` └─ defaulting to ${defaultConfig.DEST_SCRIPTS}`)
+    }
+    if (!process.env.SCRIPTS_FOLDER) {
+      console.log(' \x1b[33mWarning\x1b[0m', 'missing env variable : SCRIPTS_FOLDER')
+      console.log(` └─ defaulting to ${defaultConfig.SCRIPTS_FOLDER}`)
+    }
 
-    await cleanOldScripts()
-    await runWebpack()
+    await cleanOldScripts(isProd)
+    await runWebpack(isProd)
   } catch (e) {
-    logger.error(e.message)
+    console.log(' \x1b[31mError\x1b[0m ', 'scripts task failed')
+    console.log(' \x1b[31mError\x1b[0m ', e)
   }
 }
 
-function cleanOldScripts() {
+function cleanOldScripts(isProd = false) {
   return new Promise((resolve, reject) => {
     try {
       // clean old script folder
-      rimraf(destinationPath, () => {
-        logger.startLoading('cleaning old scripts folder')
-        logger.stopLoading('cleaning old scripts folder', 'success')
-      })
+      rimraf(isProd ? webpackProd.destinationPath : webpackDev.destinationPath, () => {})
       resolve()
     } catch (e) {
-      reject('Error cleaning old scripts folder')
+      reject('cannot delete script folder')
     }
   })
 }
 
-async function runWebpack() {
-
+async function runWebpack(isProd = false) {
   return new Promise((resolve, reject) => {
     try {
-      const compiler = webpack(config)
+      const compiler = webpack(isProd ? webpackProd.config : webpackDev.config)
       compiler.run((err, stats) => {
         if (err) {
-          logger.startLoading('')
-          logger.stopLoading('Webpack error', 'error')
+          console.log(' \x1b[31mError\x1b[0m ', 'webpack error')
           reject(err)
         } else {
-          logger.startLoading('')
-          logger.stopLoading('scripts', 'success')
+          console.log(' \x1b[32mSuccess\x1b[0m', 'scripts')
           resolve()
         }
       })
     } catch (e) {
-      logger.stopLoading('scripts', 'error')
       reject(e)
     }
   })
