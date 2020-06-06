@@ -129,8 +129,7 @@ var Logger = /*#__PURE__*/function () {
   }, {
     key: "warn",
     value: function warn() {
-      process.stdout.write(BgYellow);
-      process.stdout.write(FgBlack);
+      process.stdout.write(FgYellow);
       return this;
     }
   }, {

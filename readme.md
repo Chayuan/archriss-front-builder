@@ -14,11 +14,9 @@ and specify the following variables
 ```
 SCRIPTS_FOLDER=./path_to_scripts
 STYLES_FOLDER=./path_to_scss_files
-VIEWS_FOLDER=./path_to_twig_files
 
 DEST=name_of_destination_folder
 
-DEST_VIEWS=name_of_dest_view_folder
 DEST_STYLES=name_of_dest_stylesheets_folder
 DEST_SCRIPTS=name_of_dest_stylesheets_folder
 ```

@@ -67,8 +67,7 @@ class Logger {
   }
 
   warn() {
-    process.stdout.write(BgYellow)
-    process.stdout.write(FgBlack)
+    process.stdout.write(FgYellow)
     return this
   }
 

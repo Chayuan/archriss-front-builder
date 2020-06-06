@@ -17,6 +17,8 @@ var _gulpfile = require("../gulpfile.babel");
 
 var _dotenv = _interopRequireDefault(require("dotenv"));
 
+var _defaultConfig = _interopRequireDefault(require("../defaultConfig"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -39,9 +41,9 @@ function _styles() {
 
             _nodeLogger.default.log('STYLES');
 
-            if (!process.env.DEST) _nodeLogger.default.warn().log('Missing env variable : DEST');
-            if (!process.env.DEST_STYLES) _nodeLogger.default.warn().log('Missing env variable : DEST_STYLES');
-            if (!process.env.STYLES_FOLDER) _nodeLogger.default.warn().log('Missing env variable : STYLES_FOLDER');
+            if (!process.env.DEST) _nodeLogger.default.warn().log('Missing env variable : DEST').log("\u2514\u2500 defaulting to ".concat(_defaultConfig.default.DEST)).log();
+            if (!process.env.DEST_STYLES) _nodeLogger.default.warn().log('Missing env variable : DEST_STYLES').log("\u2514\u2500 defaulting to ".concat(_defaultConfig.default.DEST_STYLES)).log();
+            if (!process.env.STYLES_FOLDER) _nodeLogger.default.warn().log('Missing env variable : STYLES_FOLDER').log("\u2514\u2500 defaulting to ".concat(_defaultConfig.default.STYLES_FOLDER)).log();
             _context.next = 7;
             return compileScss();
 

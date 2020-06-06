@@ -8,30 +8,18 @@ import twig from 'gulp-twig'
 import postcss from 'gulp-postcss'
 import sourcemaps from 'gulp-sourcemaps'
 import sass from 'gulp-sass'
+import defaultConfig from './defaultConfig'
 
 dotenv.config()
 
 const PATHS = {
   src: {
-    views: process.env.VIEWS_FOLDER + '/**/*.twig',
-    styles: process.env.STYLES_FOLDER + '/**/*.scss'
+    styles: (process.env.STYLES_FOLDER || defaultConfig.STYLES_FOLDER) + '/**/*.scss'
   },
   dest: {
-    global: process.env.DEST,
-    viewsDev: process.env.DEST_VIEWS,
-    viewsProd: process.env.DEST_VIEWS
+    global: (process.env.DEST || defaultConfig.DEST),
+    styles: (process.env.DEST_STYLES || defaultConfig.DEST_STYLES)
   }
-}
-
-export function cleanDist() {
-  return del(PATHS.dest.global + '/')
-}
-
-export function views(isDev) {
-  return gulp
-    .src(PATHS.src.views)
-    .pipe(twig())
-    .pipe(gulp.dest(isDev ? PATHS.dest.viewsDev : PATHS.dest.viewsProd))
 }
 
 export function styles(isDev) {
@@ -68,14 +56,14 @@ export function styles(isDev) {
       .pipe(sass())
       .pipe(postcss(postcssPlugins))
       .pipe(sourcemaps.write('.'))
-      .pipe(gulp.dest(`${process.env.DEST}/${process.env.DEST_STYLES}`))
+      .pipe(gulp.dest(`${PATHS.dest.global}/${PATHS.dest.styles}`))
   } else {
     // Production mode
     return gulp
       .src(PATHS.src.styles)
       .pipe(sass())
       .pipe(postcss(postcssPlugins))
-      .pipe(gulp.dest(`${process.env.DEST}/${process.env.DEST_STYLES}`))
+      .pipe(gulp.dest(`${PATHS.dest.global}/${PATHS.dest.styles}`))
   }
 }
 

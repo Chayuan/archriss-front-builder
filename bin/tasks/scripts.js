@@ -21,6 +21,8 @@ var _nodeLogger = _interopRequireDefault(require("../utils/nodeLogger"));
 
 var _webpackConfigDev = require("../webpack/webpack.config.dev.js");
 
+var _defaultConfig = _interopRequireDefault(require("../defaultConfig"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -41,11 +43,11 @@ function _scripts() {
           case 0:
             _context.prev = 0;
 
-            _nodeLogger.default.log('SCRIPTS');
+            _nodeLogger.default.log('SCRIPTS').log();
 
-            if (!process.env.DEST) _nodeLogger.default.warn().log('Missing env variable : DEST');
-            if (!process.env.DEST_SCRIPTS) _nodeLogger.default.warn().log('Missing env variable : DEST_SCRIPTS');
-            if (!process.env.SCRIPTS_FOLDER) _nodeLogger.default.warn().log('Missing env variable : SCRIPTS_FOLDER');
+            if (!process.env.DEST) _nodeLogger.default.warn().log('Missing env variable : DEST').log("\u2514\u2500 defaulting to ".concat(_defaultConfig.default.DEST)).log();
+            if (!process.env.DEST_SCRIPTS) _nodeLogger.default.warn().log('Missing env variable : DEST_SCRIPTS').log("\u2514\u2500 defaulting to ".concat(_defaultConfig.default.DEST_SCRIPTS)).log();
+            if (!process.env.SCRIPTS_FOLDER) _nodeLogger.default.warn().log('Missing env variable : SCRIPTS_FOLDER').log("\u2514\u2500 defaulting to ".concat(_defaultConfig.default.SCRIPTS_FOLDER)).log();
             _context.next = 7;
             return cleanOldScripts();
 

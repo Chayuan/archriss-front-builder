@@ -3,16 +3,17 @@ import rimraf from 'rimraf'
 import dotenv from 'dotenv'
 import logger from '../utils/nodeLogger'
 import { config, destinationPath } from '../webpack/webpack.config.dev.js'
+import defaultConfig from '../defaultConfig'
 
 dotenv.config()
 
 export async function scripts() {
   try {
-    logger.log('SCRIPTS')
+    logger.log('SCRIPTS').log()
 
-    if(!process.env.DEST) logger.warn().log('Missing env variable : DEST')
-    if(!process.env.DEST_SCRIPTS) logger.warn().log('Missing env variable : DEST_SCRIPTS')
-    if(!process.env.SCRIPTS_FOLDER) logger.warn().log('Missing env variable : SCRIPTS_FOLDER')
+    if (!process.env.DEST) logger.warn().log('Missing env variable : DEST').log(`└─ defaulting to ${defaultConfig.DEST}`).log()
+    if (!process.env.DEST_SCRIPTS) logger.warn().log('Missing env variable : DEST_SCRIPTS').log(`└─ defaulting to ${defaultConfig.DEST_SCRIPTS}`).log()
+    if (!process.env.SCRIPTS_FOLDER) logger.warn().log('Missing env variable : SCRIPTS_FOLDER').log(`└─ defaulting to ${defaultConfig.SCRIPTS_FOLDER}`).log()
 
     await cleanOldScripts()
     await runWebpack()

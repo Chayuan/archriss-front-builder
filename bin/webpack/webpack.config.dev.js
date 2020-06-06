@@ -11,7 +11,7 @@ var _webpackBabelConf = _interopRequireDefault(require("./webpackBabelConf"));
 
 var _dotenv = _interopRequireDefault(require("dotenv"));
 
-var _nodeLogger = _interopRequireDefault(require("../utils/nodeLogger"));
+var _defaultConfig = _interopRequireDefault(require("../defaultConfig"));
 
 var _entry;
 
@@ -22,11 +22,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 _dotenv.default.config();
 
 var mainJsFileName = 'app';
-var destinationPath = process.cwd() + '/' + process.env.DEST + '/' + process.env.DEST_SCRIPTS;
+var dest = process.env.DEST || _defaultConfig.default.DEST;
+var destScripts = process.env.DEST_SCRIPTS || _defaultConfig.default.DEST_SCRIPTS;
+var destinationPath = process.cwd() + '/' + dest + '/' + destScripts;
 exports.destinationPath = destinationPath;
 var config = {
   mode: 'development',
-  entry: (_entry = {}, _defineProperty(_entry, mainJsFileName, "./".concat(process.env.SCRIPTS_FOLDER, "/index.js")), _defineProperty(_entry, "otherEntry", "./".concat(process.env.SCRIPTS_FOLDER, "/otherEntry.ts")), _entry),
+  entry: (_entry = {}, _defineProperty(_entry, mainJsFileName, "./".concat(destScripts, "/index.js")), _defineProperty(_entry, "otherEntry", "./".concat(destScripts, "/otherEntry.ts")), _entry),
   output: {
     filename: '[name].js',
     path: destinationPath

@@ -9,8 +9,6 @@ require("core-js/modules/es.promise");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.cleanDist = cleanDist;
-exports.views = views;
 exports.styles = styles;
 exports.watch = watch;
 
@@ -36,6 +34,8 @@ var _gulpSourcemaps = _interopRequireDefault(require("gulp-sourcemaps"));
 
 var _gulpSass = _interopRequireDefault(require("gulp-sass"));
 
+var _defaultConfig = _interopRequireDefault(require("./defaultConfig"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -46,23 +46,13 @@ _dotenv.default.config();
 
 var PATHS = {
   src: {
-    views: process.env.VIEWS_FOLDER + '/**/*.twig',
-    styles: process.env.STYLES_FOLDER + '/**/*.scss'
+    styles: (process.env.STYLES_FOLDER || _defaultConfig.default.STYLES_FOLDER) + '/**/*.scss'
   },
   dest: {
-    global: process.env.DEST,
-    viewsDev: process.env.DEST_VIEWS,
-    viewsProd: process.env.DEST_VIEWS
+    global: process.env.DEST || _defaultConfig.default.DEST,
+    styles: process.env.DEST_STYLES || _defaultConfig.default.DEST_STYLES
   }
 };
-
-function cleanDist() {
-  return (0, _del.default)(PATHS.dest.global + '/');
-}
-
-function views(isDev) {
-  return _gulp.default.src(PATHS.src.views).pipe((0, _gulpTwig.default)()).pipe(_gulp.default.dest(isDev ? PATHS.dest.viewsDev : PATHS.dest.viewsProd));
-}
 
 function styles(isDev) {
   var postcssPlugins = [(0, _cssMqpacker.default)({
@@ -84,10 +74,10 @@ function styles(isDev) {
 
   if (isDev) {
     // Development mode
-    return _gulp.default.src(PATHS.src.styles).pipe(_gulpSourcemaps.default.init()).pipe((0, _gulpSass.default)()).pipe((0, _gulpPostcss.default)(postcssPlugins)).pipe(_gulpSourcemaps.default.write('.')).pipe(_gulp.default.dest("".concat(process.env.DEST, "/").concat(process.env.DEST_STYLES)));
+    return _gulp.default.src(PATHS.src.styles).pipe(_gulpSourcemaps.default.init()).pipe((0, _gulpSass.default)()).pipe((0, _gulpPostcss.default)(postcssPlugins)).pipe(_gulpSourcemaps.default.write('.')).pipe(_gulp.default.dest("".concat(PATHS.dest.global, "/").concat(PATHS.dest.styles)));
   } else {
     // Production mode
-    return _gulp.default.src(PATHS.src.styles).pipe((0, _gulpSass.default)()).pipe((0, _gulpPostcss.default)(postcssPlugins)).pipe(_gulp.default.dest("".concat(process.env.DEST, "/").concat(process.env.DEST_STYLES)));
+    return _gulp.default.src(PATHS.src.styles).pipe((0, _gulpSass.default)()).pipe((0, _gulpPostcss.default)(postcssPlugins)).pipe(_gulp.default.dest("".concat(PATHS.dest.global, "/").concat(PATHS.dest.styles)));
   }
 }
 
