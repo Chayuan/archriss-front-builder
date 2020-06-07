@@ -1,7 +1,5 @@
 "use strict";
 
-require("core-js/modules/es.array.concat");
-
 require("core-js/modules/es.object.to-string");
 
 require("core-js/modules/es.promise");
@@ -49,7 +47,6 @@ var PATHS = {
     styles: (process.env.STYLES_FOLDER || _defaultConfig.default.STYLES_FOLDER) + '/**/*.scss'
   },
   dest: {
-    global: process.env.DEST || _defaultConfig.default.DEST,
     styles: process.env.DEST_STYLES || _defaultConfig.default.DEST_STYLES
   }
 };
@@ -74,10 +71,10 @@ function styles(isProd) {
 
   if (!isProd) {
     // Development mode
-    return _gulp.default.src(PATHS.src.styles).pipe(_gulpSourcemaps.default.init()).pipe((0, _gulpSass.default)()).pipe((0, _gulpPostcss.default)(postcssPlugins)).pipe(_gulpSourcemaps.default.write('.')).pipe(_gulp.default.dest("".concat(PATHS.dest.global, "/").concat(PATHS.dest.styles)));
+    return _gulp.default.src(PATHS.src.styles).pipe(_gulpSourcemaps.default.init()).pipe((0, _gulpSass.default)()).pipe((0, _gulpPostcss.default)(postcssPlugins)).pipe(_gulpSourcemaps.default.write('.')).pipe(_gulp.default.dest("".concat(PATHS.dest.styles)));
   } else {
     // Production mode
-    return _gulp.default.src(PATHS.src.styles).pipe((0, _gulpSass.default)()).pipe((0, _gulpPostcss.default)(postcssPlugins)).pipe(_gulp.default.dest("".concat(PATHS.dest.global, "/").concat(PATHS.dest.styles)));
+    return _gulp.default.src(PATHS.src.styles).pipe((0, _gulpSass.default)()).pipe((0, _gulpPostcss.default)(postcssPlugins)).pipe((0, _gulpPostcss.default)(postcssPlugins)).pipe(_gulp.default.dest("".concat(PATHS.dest.styles)));
   }
 }
 

@@ -41,11 +41,6 @@ function _styles() {
             _context.prev = 1;
             console.log("\n\x1B[1mSTYLES-".concat(isProd ? 'PROD' : 'DEV', "\x1B[0m"));
 
-            if (!process.env.DEST) {
-              console.log('\x1b[33mWarning\x1b[0m', 'missing env variable : DEST');
-              console.log("\u2514\u2500 defaulting to ".concat(_defaultConfig.default.DEST));
-            }
-
             if (!process.env.DEST_STYLES) {
               console.log('\x1b[33mWarning\x1b[0m', 'missing env variable : DEST_STYLES');
               console.log("\u2514\u2500 defaulting to ".concat(_defaultConfig.default.DEST_STYLES));
@@ -56,25 +51,25 @@ function _styles() {
               console.log("\u2514\u2500 defaulting to ".concat(_defaultConfig.default.STYLES_FOLDER));
             }
 
-            _context.next = 8;
+            _context.next = 7;
             return compileScss(isProd);
 
-          case 8:
-            _context.next = 14;
+          case 7:
+            _context.next = 13;
             break;
 
-          case 10:
-            _context.prev = 10;
+          case 9:
+            _context.prev = 9;
             _context.t0 = _context["catch"](1);
             console.log(' \x1b[31mError\x1b[0m ', 'styles task failed');
             console.log(' \x1b[31mError\x1b[0m ', _context.t0);
 
-          case 14:
+          case 13:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[1, 10]]);
+    }, _callee, null, [[1, 9]]);
   }));
   return _styles.apply(this, arguments);
 }

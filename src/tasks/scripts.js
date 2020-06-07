@@ -11,10 +11,6 @@ export async function scripts(isProd = false) {
   try {
     console.log(`\n\x1b[1mSCRIPTS-${isProd ? 'PROD' : 'DEV'}\x1b[0m`)
 
-    if (!process.env.DEST) {
-      console.log(' \x1b[33mWarning\x1b[0m', 'missing env variable : DEST')
-      console.log(` └─ defaulting to ${defaultConfig.DEST}`)
-    }
     if (!process.env.DEST_SCRIPTS) {
       console.log(' \x1b[33mWarning\x1b[0m', 'missing env variable : DEST_SCRIPTS')
       console.log(` └─ defaulting to ${defaultConfig.DEST_SCRIPTS}`)

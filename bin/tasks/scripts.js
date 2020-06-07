@@ -53,11 +53,6 @@ function _scripts() {
             _context.prev = 1;
             console.log("\n\x1B[1mSCRIPTS-".concat(isProd ? 'PROD' : 'DEV', "\x1B[0m"));
 
-            if (!process.env.DEST) {
-              console.log(' \x1b[33mWarning\x1b[0m', 'missing env variable : DEST');
-              console.log(" \u2514\u2500 defaulting to ".concat(_defaultConfig.default.DEST));
-            }
-
             if (!process.env.DEST_SCRIPTS) {
               console.log(' \x1b[33mWarning\x1b[0m', 'missing env variable : DEST_SCRIPTS');
               console.log(" \u2514\u2500 defaulting to ".concat(_defaultConfig.default.DEST_SCRIPTS));
@@ -73,29 +68,29 @@ function _scripts() {
               console.log(" \u2514\u2500 defaulting to ".concat(_defaultConfig.default.SCRIPTS_ENTRY_POINTS));
             }
 
-            _context.next = 9;
+            _context.next = 8;
             return cleanOldScripts(isProd);
 
-          case 9:
-            _context.next = 11;
+          case 8:
+            _context.next = 10;
             return runWebpack(isProd);
 
-          case 11:
-            _context.next = 17;
+          case 10:
+            _context.next = 16;
             break;
 
-          case 13:
-            _context.prev = 13;
+          case 12:
+            _context.prev = 12;
             _context.t0 = _context["catch"](1);
             console.log(' \x1b[31mError\x1b[0m ', 'scripts task failed');
             console.log(' \x1b[31mError\x1b[0m ', _context.t0);
 
-          case 17:
+          case 16:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[1, 13]]);
+    }, _callee, null, [[1, 12]]);
   }));
   return _scripts.apply(this, arguments);
 }

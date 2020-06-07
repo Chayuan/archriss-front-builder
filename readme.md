@@ -11,31 +11,37 @@ It's time we allow front end developers to actually focus on the code and stop w
 In your project, create a `.env` file
 and specify the following variables
 
+|  Name                 |  Default   |
+|-----------------------|------------|
+| SCRIPTS_ENTRY_POINTS  | index.js   |
+| SCRIPTS_FOLDER        | ./src/js   |
+| STYLES_FOLDER         | ./src/scss |
+| DEST_STYLES           | ./dist/css |
+| DEST_SCRIPTS          | ./dist/js  |
+
+Here is an example
+
 ```
 SCRIPTS_ENTRY_POINTS=your_entry_point_separated_with_spaces
 
 SCRIPTS_FOLDER=./path_to_scripts
 STYLES_FOLDER=./path_to_scss_files
 
-DEST=name_of_destination_folder
-
-DEST_STYLES=name_of_dest_stylesheets_folder
-DEST_SCRIPTS=name_of_dest_stylesheets_folder
+DEST_STYLES=./path_to_styles_dest
+DEST_SCRIPTS=./path_to_scripts_dest
 ```
 
 ## How to use
 
-Build :
-
 - development mode `yarn build`
 - production mode `yarn build:prod`
 
-## List of specific tasks (must be prefixed with yarn)
+## List of more specific tasks
 
-- `scripts`
-- `scripts:prod`
-- `styles`
-- `styles:prod`
+- `yarn scripts`
+- `yarn  scripts:prod`
+- `yarn  styles`
+- `yarn  styles:prod`
 
 ## What it does
 
@@ -43,12 +49,12 @@ Build :
 
 - Compile Twig templates to html static files
 
-- Bundle scripts to a single `app.js` file but allow multiple entry point 
-<small>(see <a href="#">How to add a javascript entrypoint)</a></small>
+- Bundle scripts to a single `index.js` file (by default) but allow multiple entry points
+<small>(see <a name="jsentrypoint">How to add a javascript entrypoint)</a></small>
 
 - Scripts will be minified and uglified for production
 
-- A sourcemap will be created while in development
+- A sourcemap will be created for development
 
 - Supported extensions are `.ts`, `.tsx`, `.js`, `.jsx`
 
@@ -56,10 +62,8 @@ Build :
 
 - Support import syntax and resolve folders indexes
 
-- Support old browser
-
 ## How to add a javascript entry
-
+[](#jsentrypoint)
 Specify the list of your javascript entry points in the `.env`
 like so
 

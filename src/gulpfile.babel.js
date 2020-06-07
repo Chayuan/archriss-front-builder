@@ -17,7 +17,6 @@ const PATHS = {
     styles: (process.env.STYLES_FOLDER || defaultConfig.STYLES_FOLDER) + '/**/*.scss'
   },
   dest: {
-    global: (process.env.DEST || defaultConfig.DEST),
     styles: (process.env.DEST_STYLES || defaultConfig.DEST_STYLES)
   }
 }
@@ -56,14 +55,15 @@ export function styles(isProd) {
       .pipe(sass())
       .pipe(postcss(postcssPlugins))
       .pipe(sourcemaps.write('.'))
-      .pipe(gulp.dest(`${PATHS.dest.global}/${PATHS.dest.styles}`))
+      .pipe(gulp.dest(`${PATHS.dest.styles}`))
   } else {
     // Production mode
     return gulp
       .src(PATHS.src.styles)
       .pipe(sass())
       .pipe(postcss(postcssPlugins))
-      .pipe(gulp.dest(`${PATHS.dest.global}/${PATHS.dest.styles}`))
+      .pipe(postcss(postcssPlugins))
+      .pipe(gulp.dest(`${PATHS.dest.styles}`))
   }
 }
 

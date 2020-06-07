@@ -49,19 +49,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 _dotenv.default.config();
 
-var dest = process.env.DEST || _defaultConfig.default.DEST;
 var destScripts = process.env.DEST_SCRIPTS || _defaultConfig.default.DEST_SCRIPTS;
 var scriptsFolder = process.env.SCRIPTS_FOLDER || _defaultConfig.default.SCRIPTS_FOLDER;
 
 var entryPoints = (process.env.SCRIPTS_ENTRY_POINTS || _defaultConfig.default.SCRIPTS_ENTRY_POINTS).split(' ');
 
-var destinationPath = process.cwd() + '/' + dest + '/' + destScripts;
+var destinationPath = process.cwd() + '/' + destScripts;
 exports.destinationPath = destinationPath;
 var config = {
   mode: 'production',
   entry: _objectSpread({}, entryPoints.reduce(function (acc, value) {
-    var splittedName = value.split('.');
-    var key = "".concat(splittedName.slice(0, splittedName.length - 1).join(''));
+    var splitName = value.split('.');
+    var key = "".concat(splitName.slice(0, splitName.length - 1).join(''));
     return _objectSpread(_objectSpread({}, acc), {}, _defineProperty({}, key, "./".concat(scriptsFolder, "/").concat(value)));
   }, {})),
   output: {
