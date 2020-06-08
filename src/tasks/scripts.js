@@ -9,7 +9,7 @@ dotenv.config()
 
 export async function scripts(isProd = false) {
   try {
-    console.log(`\n\x1b[1mSCRIPTS-${isProd ? 'PROD' : 'DEV'}\x1b[0m`)
+   console.log(`\n\x1b[1mSCRIPTS-${isProd ? 'PROD' : 'DEV'}\x1b[0m`)
 
     if (!process.env.DEST_SCRIPTS) {
       console.log(' \x1b[33mWarning\x1b[0m', 'missing env variable : DEST_SCRIPTS')
@@ -48,7 +48,20 @@ function cleanOldScripts(isProd = false) {
 async function runWebpack(isProd = false) {
   return new Promise((resolve, reject) => {
     try {
-      const compiler = webpack(isProd ? webpackProd.config : webpackDev.config)
+      let userConfig = {}
+
+      if(process.env.WEBPACK_CUSTOM_CONFIG_FILE) {
+        try {
+          userConfig = require(process.cwd() + '/' + process.env.WEBPACK_CUSTOM_CONFIG_FILE)
+          console.log(' Info', 'using custom webpack configuration')
+        } catch (e) {
+          console.log(' \x1b[33mWarning\x1b[0m', `no webpack config found in path ${process.env.WEBPACK_CUSTOM_CONFIG_FILE}`)
+          console.log(` └─ using default`)
+        }
+      }
+      const boilerplateConfig = isProd ? webpackProd.config : webpackDev.config
+
+      const compiler = webpack({...boilerplateConfig, ...userConfig})
       compiler.run((err, stats) => {
         if (err) {
           console.log(' \x1b[31mError\x1b[0m ', 'webpack error')

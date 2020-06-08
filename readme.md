@@ -11,15 +11,19 @@ It's time we allow front end developers to actually focus on the code and stop w
 In your project, create a `.env` file
 and specify the following variables
 
-|  Name                 |  Default   |
-|-----------------------|------------|
-| SCRIPTS_ENTRY_POINTS  | index.js   |
-| SCRIPTS_FOLDER        | ./src/js   |
-| STYLES_FOLDER         | ./src/scss |
-| DEST_STYLES           | ./dist/css |
-| DEST_SCRIPTS          | ./dist/js  |
+|  Name                      |  Default   | Help                         |
+|----------------------------|------------|------------------------------|
+| SCRIPTS_ENTRY_POINTS       | index.js   |                              |
+| SCRIPTS_FOLDER             | ./src/js   |                              |
+| STYLES_FOLDER              | ./src/scss |                              |
+| DEST_STYLES                | ./dist/css |                              |
+| DEST_SCRIPTS               | ./dist/js  |                              |
+|                            |            |                              |
+| Additional configuration   |            |                              |
+| WEBPACK_CUSTOM_CONFIG_FILE |            |<a name="webpack">webpack</a> |
 
-Here is an example
+
+Here is a basic example
 
 ```
 SCRIPTS_ENTRY_POINTS=your_entry_point_separated_with_spaces
@@ -68,6 +72,33 @@ Specify the list of your javascript entry points in the `.env`
 like so
 
 `SCRIPTS_ENTRY_POINTS=index.js app.js`
+
+## Overwriting webpack configuration
+[](#webpack)
+**!! Warning !!** Advanced user only
+
+chayuan-front-builder is bundled with two webpack configuration, 
+the dev one, and the prod one.
+
+You can overwrite the global configuration (prod and dev) by creating a webpack configuration file
+such as `webpack.config` containing the configuration points you want to overwrite
+
+than, you want to specify the path of the configuration file in your `.env` by using the following key
+`WEBPACK_CUSTOM_CONFIG_FILE`
+
+here is an example
+
+```js
+module.exports = {
+    entry: {
+      app: './srcExemple/js/index.js'
+    }
+}
+```
+
+`WEBPACK_CUSTOM_CONFIG_FILE=./webpack.config`
+
+Beware, overwriting the configuration may break the build process, use with care.
 
 ## Under the hood
 
